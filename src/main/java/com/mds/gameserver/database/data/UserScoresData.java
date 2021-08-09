@@ -1,12 +1,12 @@
 package com.mds.gameserver.database.data;
 
-import com.mds.gameserver.views.PlayerInfo;
+import com.mds.gameserver.views.ScoresInfo;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "usersscore")
-public class UserData {
+public class UserScoresData {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
@@ -40,10 +40,10 @@ public class UserData {
     public void setScore(int score) {
         this.score = score;
     }
-    public PlayerInfo createPlayerInfo(){
-        PlayerInfo playerInfo = new PlayerInfo();
-        playerInfo.score=score;
-        playerInfo.name=name;
-        return playerInfo;
+    public ScoresInfo createPlayerInfo(){
+        ScoresInfo scoresInfo = new ScoresInfo();
+        scoresInfo.score=score;
+        scoresInfo.name=name;
+        return scoresInfo;
     }
 }

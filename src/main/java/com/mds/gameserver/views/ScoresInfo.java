@@ -1,6 +1,6 @@
 package com.mds.gameserver.views;
 
-public class PlayerInfo {
+public class ScoresInfo {
     public String name;
     public int score;
 

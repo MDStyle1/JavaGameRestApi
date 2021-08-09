@@ -1,30 +1,37 @@
 package com.mds.gameserver.controllers;
-import com.mds.gameserver.service.UserService;
-import com.mds.gameserver.views.PlayerInfo;
+import com.mds.gameserver.service.ScoresService;
+import com.mds.gameserver.views.ScoresInfo;
 import com.mds.gameserver.views.Scores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
 @RequestMapping("/")
 public class ScoresController {
     @Autowired
-    private UserService userService;
+    private ScoresService scoresService;
     @PostMapping("newscore")
-    public ResponseEntity registrationUser(@RequestBody PlayerInfo playerInfo) {
-        userService.newScore(playerInfo);
+    @PreAuthorize("hasAuthority('creatorscores')")
+    public ResponseEntity registrationUser(@RequestBody ScoresInfo scoresInfo) {
+        scoresService.newScore(scoresInfo);
         return ResponseEntity.ok("GoodCreate");
     }
     @GetMapping("scores/top10")
-    public ResponseEntity<Scores> getTop10(){
-        return ResponseEntity.ok(userService.getTop10());
+    @PreAuthorize("hasAuthority('read')")
+    public ResponseEntity<Scores> getTop10(HttpServletRequest request){
+        System.out.println(request.getPathInfo());
+        return ResponseEntity.ok(scoresService.getTop10());
     }
     @GetMapping("scores/del")
+    @PreAuthorize("hasAuthority('write')")
     public ResponseEntity del(){
-        userService.deleteScore();
+        scoresService.deleteScore();
         return ResponseEntity.ok("scores");
     }
 }

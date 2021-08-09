@@ -1,18 +1,15 @@
 package com.mds.gameserver.views;
 
 import java.util.List;
-import java.util.Map;
-
-import com.mds.gameserver.database.data.UserData;
 
 public class Scores {
-    public List<PlayerInfo> list;
+    public List<ScoresInfo> list;
 
-    public List<PlayerInfo> getList() {
+    public List<ScoresInfo> getList() {
         return list;
     }
 
-    public void setList(List<PlayerInfo> list) {
+    public void setList(List<ScoresInfo> list) {
         this.list = list;
     }
 }
