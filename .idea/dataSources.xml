@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5400/JavaGame</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="JavaGame@rc1a-exlbm6zif8ef6y43.mdb.yandexcloud.net" uuid="000e2759-6d65-428a-99ec-4459fe56a9d4">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://rc1a-exlbm6zif8ef6y43.mdb.yandexcloud.net:6432/JavaGame</jdbc-url>
+    </data-source>
   </component>
 </project>

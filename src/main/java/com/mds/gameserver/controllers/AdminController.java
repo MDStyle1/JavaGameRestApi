@@ -19,7 +19,6 @@ public class AdminController {
     @PostMapping("/banned")
     @PreAuthorize("hasAuthority('write')")
     public ResponseEntity banned(@RequestBody UserName userName){
-        System.out.println(userName.name);
         return ResponseEntity.ok(adminService.banned(userName.name));
     }
 }

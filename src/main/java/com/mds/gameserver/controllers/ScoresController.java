@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/scores/")
 public class ScoresController {
     @Autowired
     private ScoresService scoresService;
@@ -22,13 +22,13 @@ public class ScoresController {
         scoresService.newScore(scoresInfo);
         return ResponseEntity.ok("GoodCreate");
     }
-    @GetMapping("scores/top10")
+    @GetMapping("top10")
     @PreAuthorize("hasAuthority('read')")
     public ResponseEntity<Scores> getTop10(HttpServletRequest request){
         System.out.println(request.getPathInfo());
         return ResponseEntity.ok(scoresService.getTop10());
     }
-    @GetMapping("scores/del")
+    @GetMapping("del")
     @PreAuthorize("hasAuthority('write')")
     public ResponseEntity del(){
         scoresService.deleteScore();
