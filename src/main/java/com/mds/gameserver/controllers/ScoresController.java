@@ -23,9 +23,8 @@ public class ScoresController {
         return ResponseEntity.ok("GoodCreate");
     }
     @GetMapping("top10")
-    @PreAuthorize("hasAuthority('read')")
-    public ResponseEntity<Scores> getTop10(HttpServletRequest request){
-        System.out.println(request.getPathInfo());
+//    @PreAuthorize("hasAuthority('read')")
+    public ResponseEntity<Scores> getTop10(){
         return ResponseEntity.ok(scoresService.getTop10());
     }
     @GetMapping("del")

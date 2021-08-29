@@ -23,11 +23,12 @@ public class RegisterController {
     }
     @PostMapping("register")
     public ResponseEntity register(@RequestBody RegisterInfo registerInfo){
-        return ResponseEntity.ok(registerService.register(registerInfo));
+        return registerService.register(registerInfo);
     }
     @GetMapping("login")
     @PreAuthorize("hasAuthority('read')")
     public ResponseEntity login() {
+        System.out.println("Login");
         return ResponseEntity.ok("Its ok");
     }
     @GetMapping("**")

@@ -7,6 +7,7 @@ import com.mds.gameserver.security.Role;
 import com.mds.gameserver.security.Status;
 import com.mds.gameserver.views.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +20,7 @@ public class RegisterService {
     public RegisterService(SecurityUserRepository securityUserRepository) {
         this.securityUserRepository = securityUserRepository;
     }
-    public String register(RegisterInfo registerInfo){
+    public ResponseEntity register(RegisterInfo registerInfo){
         SecurityUserDetail user = securityUserRepository.findByName(registerInfo.name);
         if(user==null) {
             user = new SecurityUserDetail();
@@ -28,8 +29,8 @@ public class RegisterService {
             user.setRole(Role.USER);
             user.setStatus(Status.ACTIVE);
             securityUserRepository.save(user);
-            return "good";
+            return ResponseEntity.ok("good");
         }
-        return "Error";
+        return (ResponseEntity) ResponseEntity.status(500);
     }
 }
