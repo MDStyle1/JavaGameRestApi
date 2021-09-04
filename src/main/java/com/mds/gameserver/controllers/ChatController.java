@@ -26,4 +26,10 @@ public class ChatController {
         chatListenService.addMessage(chatSendMessage);
         return ResponseEntity.ok("");
     }
+    @GetMapping("/clear")
+    @PreAuthorize("hasAuthority('write')")
+    public ResponseEntity clear(){
+        chatListenService.clearChat();
+        return ResponseEntity.ok("");
+    }
 }

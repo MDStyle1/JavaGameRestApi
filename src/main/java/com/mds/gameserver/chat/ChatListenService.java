@@ -54,4 +54,7 @@ public class ChatListenService {
         chatMessage1.setMessage(message);
         chatMessage1.setId(listMessage.size()-1);
     }
+    synchronized public void clearChat(){
+        listMessage.clear();
+    }
 }
