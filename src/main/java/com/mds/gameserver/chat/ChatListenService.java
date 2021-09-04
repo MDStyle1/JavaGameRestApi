@@ -16,14 +16,12 @@ public class ChatListenService {
     public ChatListenService(){
     }
     public ResponseEntity addListenUser(RequestChat requestChat){
-        System.out.println("in addListenUser");
         ChatListenUser chatListenUser = updateListenUser(requestChat);
         if(chatListenUser!=null){
             ResponseEntity responseEntity = chatListenUser.waitMes();
             deleteListenUser(chatListenUser.getName());
             return responseEntity;
         }
-        System.out.println("out addListenUser");
         return null;
     }
 
@@ -35,7 +33,6 @@ public class ChatListenService {
         listenUserList.removeIf(item->item.getName().equals(name));
     }
     synchronized private ChatListenUser updateListenUser(RequestChat requestChat){
-        System.out.println("in updateListenUser");
         ChatListenUser chatListenUser = null;
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(name);
@@ -43,7 +40,6 @@ public class ChatListenService {
             chatListenUser = new ChatListenUser(name,this,requestChat.getId());
             listenUserList.add(chatListenUser);
         }
-        System.out.println("out updateListenUser");
         return chatListenUser;
     }
     synchronized public void addMessage(ChatSendMessage chatMessage){

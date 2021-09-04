@@ -17,7 +17,6 @@ public class ChatListenUser{
         this.numChat = numChat;
         this.name = name;
         this.chatListenService = chatListenService;
-        System.out.println(name+" add");
     }
 
     public String getName() {
@@ -41,7 +40,6 @@ public class ChatListenUser{
                 e.printStackTrace();
             }
         }
-        System.out.println(name+" endLife");
         chatListenService.deleteListenUser(name);
         return null;
     }
@@ -59,7 +57,6 @@ public class ChatListenUser{
         long size =list.size()-1;
         long i;
         if(numChat==0&&size>9) {
-            System.out.println("FirstRequest");
             i=size-9;
         } else i=numChat;
         for(;i<=size;i++){
