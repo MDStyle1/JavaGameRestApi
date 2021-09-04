@@ -57,7 +57,12 @@ public class ChatListenUser{
         List<String> list = chatListenService.getListMessage();
         List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
         long size =list.size()-1;
-        for(long i = numChat;i<=size;i++){
+        long i;
+        if(numChat==0&&size>9) {
+            System.out.println("FirstRequest");
+            i=size-9;
+        } else i=numChat;
+        for(;i<=size;i++){
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setMessage(list.get((int)i));
             chatMessage.setId(i);
