@@ -1,21 +1,47 @@
 package com.mds.gameserver.controllers;
 
+import com.mds.gameserver.database.data.SecurityUserDetail;
+import com.mds.gameserver.database.repository.SecurityUserRepository;
+import com.mds.gameserver.page.LoginPageGet;
+import com.mds.gameserver.security.jwt.JwtTokenProvider;
 import com.mds.gameserver.service.RegisterService;
 import com.mds.gameserver.views.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.naming.AuthenticationException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/**")
 public class RegisterController {
     @Autowired
     RegisterService registerService;
+
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private SecurityUserRepository repository;
+
+    @Autowired
+    public RegisterController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     @GetMapping("register")
     public ResponseEntity register(){
@@ -25,11 +51,54 @@ public class RegisterController {
     public ResponseEntity register(@RequestBody RegisterInfo registerInfo){
         return registerService.register(registerInfo);
     }
+
     @GetMapping("login")
+    public ResponseEntity login(HttpServletRequest request){
+        String app = request.getHeader("app");
+        if(app==null){
+            LoginPageGet loginPageGet = new LoginPageGet();
+            return ResponseEntity.ok(loginPageGet.getPage());
+        }
+        return ResponseEntity.ok("is app");
+    }
+    @GetMapping("out")
     @PreAuthorize("hasAuthority('read')")
-    public ResponseEntity login() {
+    public ResponseEntity logout(HttpServletRequest request){
+        String app = request.getHeader("app");
+        if(app==null){
+            registerService.logout();
+            return ResponseEntity.ok("");
+        }
+        return ResponseEntity.ok("is app");
+    }
+
+    @PostMapping("login")
+//    @PreAuthorize("hasAuthority('read')")
+    public ResponseEntity login(@RequestBody RegisterInfo registerInfo, HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        String username = registerInfo.getName();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,registerInfo.getPassword()));
+        SecurityUserDetail securityUserDetail = repository.findByName(username);
+        if(securityUserDetail==null){
+            throw new UsernameNotFoundException("User not found "+username);
+        }
+        String token = jwtTokenProvider.createToken(username,securityUserDetail.getRole());
+        if(token==null){
+            return (ResponseEntity) ResponseEntity.badRequest();
+        }
+        String app = request.getHeader("app");
+        if(app==null){
+            Cookie cookie = new Cookie("JWT","Bearer_"+token);
+            cookie.setPath("/");
+            cookie.setMaxAge(999);
+            response.addCookie(cookie);
+            response.setContentType("text/plain");
+            return ResponseEntity.ok("");
+        }
+        Map<Object ,Object> res = new HashMap<>();
+        res.put("username",username);
+        res.put("token",token);
         System.out.println("Login");
-        return ResponseEntity.ok("Its ok");
+        return ResponseEntity.ok(res);
     }
     @GetMapping("**")
     public ResponseEntity notFound(){

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Main menu</title>
+</head>
+<body>
+<div id="test">
+    <p><button type="submit" name="butScore" onclick="goToScore();">Scores</button></p>
+    <p><button type="submit" name="butLogout" onclick="logout();">Out</button></p>
+</div>
+<script>
+    function goToScore(){
+        document.location.href = "http://localhost:8080/scores/top10";
+    }
+    function logout(){
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8080/out');
+        xhr.send();
+        xhr.onload = function() {
+            if (xhr.status != 200) {
+                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+                document.location.href = "http://localhost:8080/login";
+            }
+        };
+    }
+</script>
+</body>
+</html>
