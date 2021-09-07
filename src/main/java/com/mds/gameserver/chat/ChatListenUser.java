@@ -43,6 +43,9 @@ public class ChatListenUser{
         chatListenService.deleteListenUser(name);
         return null;
     }
+    public void setStop(boolean stop){
+        this.stop=stop;
+    }
     private void updateLife(){
         time1=System.currentTimeMillis();
         timeLife = timeLife - (time1-time2);

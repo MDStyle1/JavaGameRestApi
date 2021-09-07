@@ -28,7 +28,7 @@ public class ScoresPageGet {
                 "</div>\n" +
                 "<script>\n" +
                 "    function goToMenu(){\n" +
-                "        document.location.href = \"http://localhost:8080/menu\";\n" +
+                "        document.location.href = \"http://188.243.224.61:8080/menu\";\n" +
                 "    }\n" +
                 "</script>\n" +
                 "</body>\n" +

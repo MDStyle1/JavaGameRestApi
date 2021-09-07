@@ -32,14 +32,15 @@ public class ChatListenService {
     public void deleteListenUser(String name){
         listenUserList.removeIf(item->item.getName().equals(name));
     }
+
     synchronized private ChatListenUser updateListenUser(RequestChat requestChat){
-        ChatListenUser chatListenUser = null;
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(name);
-        if(listenUserList.stream().filter(item->item.getName().equals(name)).findFirst().isEmpty()){
-            chatListenUser = new ChatListenUser(name,this,requestChat.getId());
-            listenUserList.add(chatListenUser);
-        }
+        ChatListenUser chatListenUser =null;
+        chatListenUser = listenUserList.stream().filter(item->item.getName().equals(name)).findFirst().orElse(null);
+        if(chatListenUser!=null) chatListenUser.setStop(true);
+        chatListenUser = new ChatListenUser(name,this,requestChat.getId());
+        listenUserList.add(chatListenUser);
         return chatListenUser;
     }
     synchronized public void addMessage(ChatSendMessage chatMessage){

@@ -7,21 +7,29 @@
 <body>
 <div id="test">
     <p><button type="submit" name="butScore" onclick="goToScore();">Scores</button></p>
+    <p><button type="submit" name="butChat" onclick="goToChat();">Chat</button></p>
+    <p><button type="submit" name="butChatTest" onclick="goToChatTest();">Test</button></p>
     <p><button type="submit" name="butLogout" onclick="logout();">Out</button></p>
 </div>
 <script>
+    function goToChatTest(){
+    document.location.href = "http://188.243.224.61:8080/chat/test";
+    }
+    function goToChat(){
+        document.location.href = "http://188.243.224.61:8080/chat";
+    }
     function goToScore(){
-        document.location.href = "http://localhost:8080/scores/top10";
+        document.location.href = "http://188.243.224.61:8080/scores/top10";
     }
     function logout(){
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:8080/out');
+        xhr.open('GET', 'http://188.243.224.61:8080/out');
         xhr.send();
         xhr.onload = function() {
             if (xhr.status != 200) {
                 alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
             } else {
-                document.location.href = "http://localhost:8080/login";
+                document.location.href = "http://188.243.224.61:8080/login";
             }
         };
     }

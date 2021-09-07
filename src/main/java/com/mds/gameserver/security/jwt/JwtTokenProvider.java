@@ -58,6 +58,7 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request){
+        System.out.println("get Token");
         Cookie [] cookies = request.getCookies();
         String bearerToken = null;
         if(cookies!=null){

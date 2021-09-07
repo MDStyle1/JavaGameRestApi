@@ -8,7 +8,7 @@
 <div id="test">
     <p>Login<input type="text" id="login"></p>
     <p>Password<input type="text" id="password"></p>
-    <p><button type="submit" name="butLogin" onclick="sendRequest();">Login</button></p>
+    <p><input type="button" name="butLogin" onclick="sendRequest();" value="Login" ></p>
 </div>
 <script>
     let divTest = document.getElementById("test");
@@ -20,7 +20,7 @@
             name: username.value,
             password: userPassword.value
         });
-        xhr.open('POST', 'http://localhost:8080/login');
+        xhr.open('POST', 'http://188.243.224.61:8080/login');
         xhr.setRequestHeader('Accept', 'application/json');
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.send(json);
@@ -28,7 +28,7 @@
             if (xhr.status != 200) {
                 alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
             } else {
-                document.location.href = "http://localhost:8080/menu";
+                document.location.href = "http://188.243.224.61:8080/menu";
             }
         };
     }

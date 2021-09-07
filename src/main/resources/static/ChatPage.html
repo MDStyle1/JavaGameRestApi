@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Scores</title>
+</head>
+<style>
+    .myMesInChat{
+        text-align: right;
+        margin-left: auto;
+    }
+    .otherMesInChat{
+        text-align: left;
+        margin-right: auto;
+    }
+    .container {
+        height: 300px;
+        width: 500px;
+        background: #fff;
+        border: 1px solid #C1C1C1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+</style>
+<body>
+<div id="test">
+    <p><button type="submit" name="butMenu" onclick="goToMenu();">Menu</button></p>
+</div>
+<div id="container" class="container">
+</div>
+<div id="chatSend">
+    <p><input type="text" id="textMessage"> <button type="submit" id="butSend" onclick="sendMessage();">Send</button></p>
+</div>
+<script>
+    let name="mds";
+</script>
+<script type="text/javascript" src="chat/chat.js"></script>
+</body>
+</html>

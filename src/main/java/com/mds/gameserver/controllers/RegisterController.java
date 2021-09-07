@@ -7,17 +7,13 @@ import com.mds.gameserver.security.jwt.JwtTokenProvider;
 import com.mds.gameserver.service.RegisterService;
 import com.mds.gameserver.views.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.Cookie;
@@ -28,6 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/**")
+@CrossOrigin(origins = "http://188.243.224.61:8080")
 public class RegisterController {
     @Autowired
     RegisterService registerService;
@@ -100,23 +97,23 @@ public class RegisterController {
         System.out.println("Login");
         return ResponseEntity.ok(res);
     }
-    @GetMapping("**")
-    public ResponseEntity notFound(){
-        return ResponseEntity.ok("<!DOCTYPE html>\n" +
-                "<html lang=\"ru\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <title>notFound</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h4 style=\"text-align: center;\"><strong>Доступные комманды</strong></h4>\n" +
-                "<h4 style=\"text-align: center;\"><strong>/register</strong></h4>\n" +
-                "<h4 style=\"text-align: center;\"><strong>/login</strong></h4>\n" +
-                "<h4 style=\"text-align: center;\"><strong>/scores/newscore</strong></h4>\n" +
-                "<h4 style=\"text-align: center;\"><strong>/scores/top10</strong></h4>\n" +
-                "<h4 style=\"text-align: center;\"><strong>/scores/del</strong></h4>\n" +
-                "</body>\n" +
-                "</html>");
-//                ResponseEntity.ok("не существует");
-    }
+//    @GetMapping("**")
+//    public ResponseEntity notFound(){
+//        return ResponseEntity.ok("<!DOCTYPE html>\n" +
+//                "<html lang=\"ru\">\n" +
+//                "<head>\n" +
+//                "    <meta charset=\"UTF-8\">\n" +
+//                "    <title>notFound</title>\n" +
+//                "</head>\n" +
+//                "<body>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>Доступные комманды</strong></h4>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>/register</strong></h4>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>/login</strong></h4>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>/scores/newscore</strong></h4>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>/scores/top10</strong></h4>\n" +
+//                "<h4 style=\"text-align: center;\"><strong>/scores/del</strong></h4>\n" +
+//                "</body>\n" +
+//                "</html>");
+////                ResponseEntity.ok("не существует");
+//    }
 }

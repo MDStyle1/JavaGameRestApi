@@ -15,7 +15,7 @@ public class LoginPageGet {
                 "<div id=\"test\">\n" +
                 "    <p>Login<input type=\"text\" id=\"login\"></p>\n" +
                 "    <p>Password<input type=\"text\" id=\"password\"></p>\n" +
-                "    <p><button type=\"submit\" name=\"butLogin\" onclick=\"sendRequest();\">Login</button></p>\n" +
+                "    <p><input type=\"button\" name=\"butLogin\" onclick=\"sendRequest();\" value=\"Login\" ></p>\n" +
                 "</div>\n" +
                 "<script>\n" +
                 "    let divTest = document.getElementById(\"test\");\n" +
@@ -27,7 +27,7 @@ public class LoginPageGet {
                 "            name: username.value,\n" +
                 "            password: userPassword.value\n" +
                 "        });\n" +
-                "        xhr.open('POST', 'http://localhost:8080/login');\n" +
+                "        xhr.open('POST', 'http://188.243.224.61:8080/login');\n" +
                 "        xhr.setRequestHeader('Accept', 'application/json');\n" +
                 "        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');\n" +
                 "        xhr.send(json);\n" +
@@ -35,7 +35,7 @@ public class LoginPageGet {
                 "            if (xhr.status != 200) {\n" +
                 "                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);\n" +
                 "            } else {\n" +
-                "                document.location.href = \"http://localhost:8080/menu\";\n" +
+                "                document.location.href = \"http://188.243.224.61:8080/menu\";\n" +
                 "            }\n" +
                 "        };\n" +
                 "    }\n" +
